@@ -5,12 +5,15 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Assert;
+
+import org.hamcrest.collection.IsMapContaining;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * Unit test for simple App.
@@ -32,7 +35,7 @@ public class AppTest
                 new Car("BMW", "7 Series"),
                 new Car("Lexus", "LFA"),
                 new Car("Hyuandai", "Accent"),
-                new Car("BMW", "3 Series")
+                new Car("Chevorlette", "Blaze")
         );
     }
 
@@ -58,7 +61,6 @@ public class AppTest
         System.out.println("\nCar Object Collection: " + carList.toString());
     }
 
-
     // Set Test: Change actual List to random numbers and set list
     @Test
     public void setTest()
@@ -70,6 +72,20 @@ public class AppTest
             actual.set(i, randomNumber);
         }
         System.out.println("Random Numbers set:" + actual);
+    }
+
+    // Map Test:    Convert List to Map
+    //              Add extra Car
+    //              Test Contents and Print
+    @Test
+    public void mapTest()
+    {
+        Map<String, String> carListMap = carList.stream().collect(
+                Collectors.toMap(Car::getMake, Car::getModel));
+        carListMap.put("Volwagen", "Beetle");
+        assertTrue(carListMap.containsKey("BMW"));
+        assertThat(carListMap, IsMapContaining.hasEntry("BMW", "7 Series"));
+        System.out.println("\nCar List Map: " + carListMap);
     }
 
     public class Car

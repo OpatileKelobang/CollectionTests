@@ -1,23 +1,23 @@
 package org.example;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class App
 {
     public static void main( String[] args )
     {
-        List<Car> carList = Arrays.asList(
-                new Car("Toyota", "Hilux"),
-                new Car("BMW", "7 Series")
-        );
+        List<Car> carList = new ArrayList<>();
+        carList.add(new Car("Toyota", "Hilux"));
+        carList.add(new Car("BMW", "3 Series"));
+        carList.add(new Car("Lexus", "LFA"));
 
         List<Integer> numbers = new ArrayList<Integer>();
         numbers.add(0,1);
         numbers.add(1,2);
         numbers.add(2, 3);
         System.out.println(numbers);
+        System.out.println(carList.toString());
     }
 
     public static class Car
@@ -45,6 +45,14 @@ public class App
 
         public void setModel(String model) {
             this.model = model;
+        }
+
+        @Override
+        public String toString() {
+            return "Car{" +
+                    "make='" + make + '\'' +
+                    ", model='" + model + '\'' +
+                    '}';
         }
     }
 }
